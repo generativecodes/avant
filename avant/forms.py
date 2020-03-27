@@ -1,4 +1,4 @@
-from avant.Vector import Vector
+from avant.vector import Vector
 from avant.settings import *
 from math import pi as PI
 TWOPI = 2 * PI
