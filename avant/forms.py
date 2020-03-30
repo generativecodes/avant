@@ -10,11 +10,14 @@ def forms_init_context(context):
     ctx = context
 
 def line(x1, y1, x2, y2):
+    y1 = -y1
+    y2 = -y2
     ctx.move_to(x1, y1)
     ctx.line_to(x2, y2)
     apply_stroke_and_fill(ctx)
 
 def arc(x, y, radius, start, end):
+    y = -y
     ctx.arc(x, y, radius, start, end)
     apply_stroke_and_fill(ctx)
 
@@ -32,6 +35,7 @@ def polygon(x, y, radius, edges, rotation):
         print(v1,v2,v1.x)
         line(v1.x, v1.y, v2.x, v2.y)
     else:
+        y=-y
         ctx.save()
         ctx.translate(x, y)
         ctx.new_path()
