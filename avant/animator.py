@@ -1,15 +1,28 @@
 from avant.dependencies import Gtk, GLib, cairo
 from avant.code_executer import code_executer
 
-# https://blog.fossasia.org/creating-animations-in-gtk-with-pycairo-in-susi-linux-app/
 class Animator(Gtk.DrawingArea):
-    """A class; run the animation-loop."""
+    """Display the Animation with a certain Framerate.
+
+    This is inspired by:
+    github:     @fossasia
+    repo:       susi-linux
+    path:       /susi_linux/ui/animators.py
+    license:    Apache-2.0
+    """
 
     def __init__(self, path, **properties):
+        """initialize Animator and set framerate
+
+        path -- The Filepath to the users code
+        **properties -- parameters for the gtk drawingarea
+        """
         super().__init__(*properties)
         self.connect("draw", self.do_drawing)
-        GLib.timeout_add(16.68, self.tick)
+        self.set_framerate(60)
+        # initialise code executer
         self.executer = code_executer(path)
+        # "compiles" the user code
         self.executer.run()
 
     def tick(self):
@@ -21,5 +34,8 @@ class Animator(Gtk.DrawingArea):
                        self.get_allocated_height())
 
     def draw(self, ctx, width, height):
-        self.executer.setup_(ctx)
-        self.executer.loop_(ctx)
+        """executes the user writen setup() or draw()"""
+        self.executer.display(ctx,width,height)
+
+    def set_framerate(self,fps):
+        GLib.timeout_add(1000 / fps, self.tick)
