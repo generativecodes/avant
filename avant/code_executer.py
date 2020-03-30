@@ -4,59 +4,69 @@ from avant.forms import *
 make_functions_global =[
         "global setup\n",
         "global loop\n",
+        "global WIDTH, HEIGHT\n",
         ]
 
 init_w_and_h_and_center_picture = [
         "    surface = ctx.get_target()\n",
-        "    width = surface.get_width()\n",
-        "    height = surface.get_height()\n",
-        "    ctx.translate(width/2, height/2)\n",
+        "    global WIDTH, HEIGHT\n",
+        "    WIDTH = surface.get_width()\n",
+        "    HEIGHT = surface.get_height()\n",
+        "    ctx.translate(WIDTH/2, HEIGHT/2)\n",
+        "    SIZE = size()\n",
         ]
 
 init_context_everywhere = [
+        "    ctx = args[0]\n",
+        "    globals().update(kwargs)\n",
         "    forms_init_context(ctx)\n",
         "    settings_init_context(ctx)\n",
         ]
 
 class code_executer():
-
+    """a class that uses exec"""
     def __init__(self, path):
         with open(path) as f:
             self.code = [line for line in f]
-        self.add_at_line(3, make_functions_global)
+        self.replace_line(
+                "def setup():\n",
+                "def setup(*args, **kwargs):\n",
+                )
+        self.replace_line(
+                "def loop():\n",
+                "def loop(*args, **kwargs):\n",
+                )
+        self.add_at_line(2, make_functions_global)
         loop_inits =  init_context_everywhere
         loop_inits += init_w_and_h_and_center_picture
-        self.add_to_function("def loop(ctx):",
+        self.add_to_function("def loop(*args, **kwargs):",
                 start=loop_inits)
-        self.ctx = None
-        self.var_and_fncs = None
+        self.var_and_fnc = None
         self.setup = None
+        self.setup_executed = False
         self.loop = None
+
+    def loop_(self, ctx):
+        self.loop(*(ctx,),**(self.var_and_fnc))
+
+    def setup_(self, ctx):
+        if not self.setup_executed:
+            self.setup(*(ctx,),**(self.var_and_fnc))
+            self.setup_executed = True
 
     def run(self):
         global setup
         global loop
         self.code = "".join(self.code)
         exec(self.code)
-        ignore_list = [
-                "self",
-                "vector",
-                "settings",
-                "forms",
-                "code_executer",
-                "animator",
-                "main"
-                ]
         self.var_and_fnc = locals()
-        
-
-        # run from time to time to check if all gets ignored
-        #for name in self.var_and_fnc:
-        #    print(name)
-        #    print(self.var_and_fnc[name], "\n")
-        
         self.setup = setup
         self.loop = loop
+
+    def replace_line(self, old, new):
+        for i,line in enumerate(self.code):
+            if old in line:
+                self.code[i] = new
 
     def add_at_line(self, line, new_code):
         before = self.code[:line+1]

@@ -1,2 +1,2 @@
 # ɅVɅNT
-ɅVɅNT is a graphics library
+ɅVɅNT is a graphics library for python.

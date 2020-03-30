@@ -5,7 +5,6 @@ TWOPI = 2 * PI
 
 ctx = None
 
-
 def forms_init_context(context):
     global ctx
     ctx = context
@@ -47,3 +46,9 @@ def polygon(x, y, radius, edges, rotation):
         apply_stroke_and_fill(ctx)
         ctx.restore
 
+def circle(x=0, y=0, radius=None):
+    if radius is None:
+        radius = size()
+        arc(x,y,radius,0,TWOPI)
+    else:
+        arc(x,y,radius,0,TWOPI)

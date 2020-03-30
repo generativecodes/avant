@@ -1,7 +1,16 @@
+from math import sqrt
+phi = (1 + sqrt(5))/2 -1
+
 fill_val = (1,1,1,1)
 stroke_val = (0,0,0,1)
 
 ctx = None
+
+def size():
+    surface = ctx.get_target()
+    w = surface.get_width()
+    h = surface.get_height()
+    return min(w, h)*phi*phi*phi
 
 def settings_init_context(context):
     global ctx
