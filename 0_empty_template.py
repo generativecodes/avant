@@ -3,8 +3,8 @@ import avant
 
 
 
-def setup(*args, **kwargs):
+def setup():
     pass
 
-def loop(*args, **kwargs):
+def loop():
     pass
