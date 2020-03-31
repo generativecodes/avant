@@ -2,8 +2,7 @@
 import avant
 
 def setup():
-    pass
+    fill(0,0,0)
 
 def loop():
     circle()
-

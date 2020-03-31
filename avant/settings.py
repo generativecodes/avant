@@ -50,3 +50,4 @@ def apply_stroke_and_fill(ctx):
                             fill_val[3])
         ctx.fill()
 
+

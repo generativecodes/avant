@@ -18,8 +18,10 @@ class Animator(Gtk.DrawingArea):
         **properties -- parameters for the gtk drawingarea
         """
         super().__init__(*properties)
-        self.connect("draw", self.do_drawing)
-        self.set_framerate(60)
+        self.connect("draw", self.draw)
+#        self.connect("draw", self.do_drawing)
+        framerate = 60
+        self.set_framerate(framerate)
         # initialise code executer
         self.executer = code_executer(path)
         # "compiles" the user code
@@ -29,13 +31,18 @@ class Animator(Gtk.DrawingArea):
         self.queue_draw()
         return True
 
-    def do_drawing(self, widget, ctx):
-        self.draw(ctx, self.get_allocated_width(),
-                       self.get_allocated_height())
+#    def do_drawing(self, widget, ctx):
+#        self.draw(ctx, self.get_allocated_width(),
+#                       self.get_allocated_height())
+#    def draw(self, ctx, width, height):
+#        """executes the user writen setup() or draw()"""
+#        self.executer.display(ctx,width,height)
 
-    def draw(self, ctx, width, height):
+    def draw(self, widget, ctx):
         """executes the user writen setup() or draw()"""
-        self.executer.display(ctx,width,height)
+        self.executer.display(ctx,
+                self.get_allocated_width(),
+                self.get_allocated_height())
 
     def set_framerate(self,fps):
         GLib.timeout_add(1000 / fps, self.tick)

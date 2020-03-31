@@ -56,3 +56,6 @@ def circle(x=0, y=0, radius=None):
         arc(x,y,radius,0,TWOPI)
     else:
         arc(x,y,radius,0,TWOPI)
+
+def point(x=0,y=0):
+    circle(x,y, radius=0.1)

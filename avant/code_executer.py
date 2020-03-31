@@ -1,5 +1,6 @@
 from avant.vector import Vector
 from avant.forms import *
+from avant.timer import timer
 from avant.code_supplementer import code_supplementer
 
 class code_executer():
