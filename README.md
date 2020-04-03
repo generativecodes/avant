@@ -3,10 +3,12 @@
 
 ## About
 At the moment ɅVɅNT is mostly a simplification
-of the Pycairo module. But it is going to be much more.
+of the Pycairo module.
 It tries to provide an easy to use toolkit for people
 who want to create visual media via programming.
 Like pictures, animations or applications.
+Also it is designed to make learning about
+programming easy if you are new to the practice.
 
 ## Setup
 (on a unix system)
