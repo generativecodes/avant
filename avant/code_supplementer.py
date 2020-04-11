@@ -5,6 +5,7 @@ class code_supplementer():
         self.code = code
 
     def run(self):
+
         init_args = "    ctx = args[0]\n" +\
                     "    globals().update(kwargs)\n"
 

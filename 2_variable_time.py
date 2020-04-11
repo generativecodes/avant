@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-import avant
-from math import sin, cos
+from avant import *
 
 t = timer(warp=5)
 
@@ -14,3 +13,5 @@ def loop():
     pos_x = SIZE * sin(x)
     pos_y = SIZE * cos(x)
     circle(pos_x, pos_y*sin(x), radius = SIZE/3)
+
+

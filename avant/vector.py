@@ -127,10 +127,9 @@ class Vector():
         return Vector(cos(angle),sin(angle))
 
     def rotate(self,angle):
-        x = self.x * cos(angle) - self.y * sin(angle)
-        y = self.x * sin(angle) + self.y * cos(angle)
-        self.x = x
-        self.y = y
+        self.x, self.y = (
+            self.x * cos(angle) - self.y * sin(angle) ,
+            self.x * sin(angle) + self.y * cos(angle) )
 
     def copy(self):
         return Vector(self.x, self.y, self.z)

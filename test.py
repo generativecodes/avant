@@ -2,7 +2,12 @@
 from avant import *
 
 def setup():
-    fill(0,0,0)
+    pass
 
 def loop():
+    #pentagon()
     circle()
+    hexagon()
+    pentagon()
+    square()
+    triangle()

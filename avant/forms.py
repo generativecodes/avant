@@ -2,6 +2,8 @@ from avant.vector import Vector
 from avant.settings import *
 from math import pi as PI
 TWOPI = 2 * PI
+PHI = (-1 + sqrt(5))/2
+
 
 ctx = None
 
@@ -53,9 +55,36 @@ def polygon(x, y, radius, edges, rotation):
 def circle(x=0, y=0, radius=None):
     if radius is None:
         radius = size()
-        arc(x,y,radius,0,TWOPI)
-    else:
-        arc(x,y,radius,0,TWOPI)
+    arc(x,y,radius,0,TWOPI)
 
 def point(x=0,y=0):
     circle(x,y, radius=0.1)
+
+def hexagon(x=0, y=0, radius=None, rotation=None):
+    if radius is None:
+        radius = size()
+    if rotation is None:
+        rotation = 0
+    polygon(x,y,radius,6,rotation)
+
+def pentagon(x=0, y=0, radius=None, rotation=None):
+    if radius is None:
+        radius = size() * PHI * PHI
+    if rotation is None:
+        rotation = 0
+    polygon(x,y,radius,5,rotation)
+
+def square(x=0, y=0, radius=None, rotation=None):
+    if radius is None:
+        radius = size() / sqrt(2)
+    if rotation is None:
+        rotation = 0
+    polygon(x,y,radius,4,rotation)
+
+def triangle(x=0, y=0, radius=None, rotation=None):
+    if radius is None:
+        radius = size() / sqrt(3)
+    if rotation is None:
+        rotation = 0
+    polygon(x,y,radius,3,rotation)
+

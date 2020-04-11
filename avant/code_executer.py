@@ -1,6 +1,4 @@
-from avant.vector import Vector
-from avant.forms import *
-from avant.timer import timer
+from avant.modules import *
 from avant.code_supplementer import code_supplementer
 
 class code_executer():
@@ -26,12 +24,13 @@ class code_executer():
     def display(self, ctx, width, height):
         settings_init_context(ctx)
         forms_init_context(ctx)
+        init_text(width,height,size(),ctx)
         self.var_and_fnc.update([ ("WIDTH",width),
                                   ("HEIGHT",height),
                                   ("SIZE",size())   ])
         ctx.translate(width/2, height/2)
         if not self.setup_executed:
-            self.setup(*(ctx,),**(self.var_and_fnc))
+            self.setup(*(ctx,), **(self.var_and_fnc))
             self.setup_executed = True
         else:
             self.loop(*(ctx,),**(self.var_and_fnc))

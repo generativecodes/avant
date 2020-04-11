@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-import avant
-
-
+from avant import *
 
 def setup():
     pass
